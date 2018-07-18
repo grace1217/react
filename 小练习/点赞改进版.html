@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>点赞改进版</title>
+</head>
+<body>
+	<p>手动管理数据和DOM之间的关系会导致代码可维护性变差、容易出错。所以下一步的优化是：如何尽量减少这种手动 DOM 操作</p>
+	<div>提出一种解决方案：一旦状态发生改变，就重新调用 render 方法，构建一个新的 DOM 元素。这样做的好处是在render方法里面使用最新的this.state来构造不同HTML结构的字符串，并且通过这个字符串构造不同的 DOM 元素。页面就更新了</div>
+	<div class="wrapper">
+		
+	</div>
+</body>
+<script type="text/javascript">
+	const createDOMFromString = (domString)=>{
+		const div = document.createElement('div')
+		div.innerHTML = domString
+		return div
+	}
+
+	class LikeButton {
+		constructor (){
+			this.state = {isLiked: true}
+		}
+
+		setState (state){
+			const oldEl = this.el
+			this.state = state
+			this.el = this.render()
+			if(this.onStateChange) this.onStateChange(oldEl, this.el)
+		}
+
+		changeLikeText(){
+			this.setState({
+				isLiked: !this.state.isLiked
+			})
+		}
+		render (){
+			this.el = createDOMFromString(`
+				<button class="like-btn">
+					<span class="like-text">${this.state.isLiked ? '取消': '点赞'}</span>
+					<span>👍</span>
+				</button>`
+			)
+			this.el.addEventListener('click',this.changeLikeText.bind(this),false)
+			return this.el
+		}
+	}
+	/*存在问题：render不会根据state不同重构DOM 解决方法：需要重新渲染DOM  用户每次点击，changeLikeText 都会调用改变组件状态然后调用 setState ；setState 会调用 render ，render 方法会根据 state 的不同重新构建不同的 DOM 元素*/
+	const wrapper = document.querySelector('.wrapper')
+	const likeButton1 = new LikeButton()
+	wrapper.appendChild(likeButton1.render())
+	likeButton1.onStateChange = (oldEl, newEl) => {
+		wrapper.insertBefore(newEl, oldEl)
+		wrapper.removeChild(oldEl)
+	}
+</script>
+</html>

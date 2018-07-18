@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React组件的创建</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+</body>
+<script type="text/babel">
+	class Title extends React.Component{
+		handleClickOnTitle(){
+			console.log('Click on title.')
+		}
+		render(){
+			return(
+				<h1 onClick={this.handleClickOnTitle}>我是Title</h1>
+			)
+		}
+	}
+
+	class Header extends React.Component{
+		handleClickOnHeader(e){
+			console.log(e.target.innerHTML)
+		}
+		render(){
+			return(
+				<div>
+					<Title />
+					<h2 onClick={this.handleClickOnHeader}>我是Header</h2>
+				</div>
+			)
+		}
+	}
+
+	class Main extends React.Component{
+		handleClickOnMain(e){
+			console.log(this)
+		}
+		render(){
+			return(
+				<div>
+					<h2 onClick={this.handleClickOnMain.bind(this)}>我是Content</h2>
+				</div>
+			)
+		}
+	}
+
+	class Footer extends React.Component{
+		handleClickOnFooter(word,e){
+			console.log(this,word)
+		}
+		render(){
+			return(
+				<div>
+					<h2 onClick={this.handleClickOnFooter.bind(this,'grace')}>我是Footer</h2>
+				</div>
+			)
+		}	
+	}
+
+	class Index extends React.Component{
+		render(){
+			return(
+				<div>
+					<Header />
+					<Main />
+					<Footer />
+				</div>
+			)
+		}
+	}
+
+	ReactDOM.render(
+		<Index />,
+		document.getElementById('example')
+	)
+</script>
+</html>

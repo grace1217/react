@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>renderContent</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id='root'>
+		
+	</div>
+</body>
+<script type="text/babel">
+	//显示标题
+	class Title extends React.Component{
+		render(){
+			return (
+				<h2>我是Title</h2>
+			)
+		}
+	}
+
+	//Header组件
+	class Header extends React.Component{
+		render(){
+			return (
+				<div>
+					<h1>我是头部</h1>
+					<Title />
+					<Title />
+					<Title />
+				</div>
+			)
+		}
+	}
+	//Content组件
+	class Header extends React.Component{
+		render(){
+			return (
+				<div>
+					<h3>This is main content</h3>
+				</div>
+			)
+		}
+	}
+	
+	//footer组件
+	class Footer extends Componen
+	ReactDOM.render(
+		<Header />,
+		document.getElementById('root')
+	)
+</script>
+</html>

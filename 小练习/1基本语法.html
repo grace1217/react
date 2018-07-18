@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+  </head>
+  <body>
+    <div id='example'></div>
+    <script type="text/babel">
+      var myStyle={
+       fontSize: 40,
+       color: '#f00',
+       fontWeight: 'normal'
+    };
+    var i=1;
+    var arr =[
+      <h1>我是标题一</h1>,
+      <h2>我是标题二</h2>,
+      123,
+      <p>{1+1}</p>,
+      <span>{i===1?'true':'false'}</span>
+    ];
+    var myDivElement = '<div className="foo"/>'
+      ReactDOM.render(
+          /* 这样可以吗 */
+
+        <div>
+          <h1 style={myStyle}>hello world
+          {/*这应该不行*/}
+          </h1>
+          <div>{arr}</div>
+        </div>,
+        document.getElementById('example')
+      )
+    </script>
+  </body>
+</html>

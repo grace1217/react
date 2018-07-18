@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>组件间传值</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id='grace'></div>
+</body>
+<script type="text/babel">
+	class Father extends React.Component{
+		renderFathe(i){
+			return <Son value={i} />
+		}
+		render() {
+			return (
+				<div>
+				  <div className = 'board-row'>
+				    {this.renderSquare(0)}
+				    {this.renderSquare(1)}
+				    {this.renderSquare(2)}
+				  </div>
+				  <div className = 'board-row'>
+				  	{this.renderSquare(3)}
+				  	{this.renderSquare(4)}
+				  	{this.renderSquare(5)}
+				  </div>
+				  <div className = 'board-row'>
+				  	{this.renderSquare(6)}
+				  	{this.renderSquare(7)}
+				  	{this.renderSquare(8)}
+				  </div>
+				</div>
+			)
+		}
+	}
+	class Son extends React.Component{
+		render(){
+			return (
+				<div>{this.props.value}</div>
+			)
+		}
+	}
+
+	ReactDOM.render(
+		<Son />,
+		document.getElementById('grace')
+	)
+</script>
+</html>

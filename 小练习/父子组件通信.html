@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>父子组件通信</title>
+	<script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+</body>
+<script type="text/babel">
+	//温度显示 temperatureShow
+	function TemperatureShow(props){
+		if(props.temperature > 38){
+			return <p>天气热</p>
+		}else if(props.temperature<=38 && props.temperature >=0){
+			return <p>天气正适合</p>
+		}else{
+			return <p>天气冷</p>
+	    }
+	}
+
+	//温度输入框 temperatureInput
+	function TemperatureInput(props){
+		return (
+			<p>
+				<label htmlFor='tempInput'>请输入天气温度</label>
+				<input type='text' name='tempInput' value={props.temperature} />
+			</p>
+		)
+	}
+	
+	//父容器 TemperatureContainer
+	class TemperatureContainer extends React.Component{
+		constructor(props){
+			super(props)
+			this.state = {
+				temperature: '20'
+			}
+		}
+		render(){
+			let temperature = this.state.temperature
+			return (
+				<div>
+					<TemperatureInput temperature={temperature} />
+					<TemperatureShow temperature={parseFloat(temperature)} />
+				</div>
+			)
+		}
+	}
+
+	ReactDOM.render(
+		<TemperatureContainer />,
+		document.getElementById('root')
+	)
+</script>
+</html>
